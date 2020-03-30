@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link rel="stylesheet" type="text/css" th:href="@{/static/CSS/main.css}" />
+<meta charset="UTF-8">
+<title>Create user account</title>
+</head>
+<body>
+	<div th:insert="layout :: header"></div>
+
+	<form method="post" th:action="@{/createaccount}" th:object="${user}">
+		<table class="formtable">
+			<tr>
+				<td class="label">User name:</td>
+				<td><input th:field="*{username}" type="text" /><br>
+				<div th:if="${#fields.hasErrors('username')}"
+						th:errors="*{username}" th:errorclass="error"></div></td>
+			</tr>
+			<tr>
+				<td class="label">Name:</td>
+				<td><input th:field="*{name}" type="text" /><br>
+				<div th:if="${#fields.hasErrors('name')}"
+						th:errors="*{name}" th:errorclass="error"></div></td>
+			</tr>
+			<tr>
+				<td class="label">E-mail:</td>
+				<td><input th:field="*{email}" type="text" /><br>
+				<div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+						th:errorclass="error"></div></td>
+			</tr>
+			<tr>
+				<td class="label">Password:</td>
+				<td><input th:field="*{password}" type="text" /><br>
+				<div th:if="${#fields.hasErrors('password')}"
+						th:errors="*{password}" th:errorclass="error"></div></td>
+			</tr>
+			<tr>
+				<td class="label">Confirm password:</td>
+				<td><input th:name="confirm_password" type="text" /><br></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><input value="Create account" type="submit"></td>
+			</tr>
+		</table>
+	</form>
+	<div th:insert="layout :: footer"></div>
+
+</body>
+</html>

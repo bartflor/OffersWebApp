@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+<link rel="stylesheet" type="text/css" th:href="@{/static/CSS/main.css}"/>
+<title>home page</title>
+</head>
+<body>
+<div th:insert="layout :: header"></div>
+
+
+
+<p>OFFERS LIST:<br/>
+	<table>
+		<tr>
+			<th>NAME</th>
+			<th>EMAIL</th>
+			<th>OFFER</th>
+		</tr>
+		<tr th:each="offer : ${offersList}">
+			<td th:text="${offer.user.name}">name</td>
+			<td th:text="${offer.user.email}">email</td>
+			<td th:text="${offer.text}">text</td>
+		</tr>
+	</table>
+	
+<p> <a th:href="@{/offers}">Offers</a>
+
+<div th:switch=${hasOffer}> 
+  <p th:case=true><a th:href="@{/createoffer}">Edit offer </a></p>
+  <p th:case=false><a th:href="@{/createoffer}">New offer </a></p>
+</div>
+
+<p> <a th:href="@{/newaccount}">New account</a>
+
+<div sec:authorize="hasRole('ROLE_ADMIN')">
+<p> <a th:href="@{/panel}">Admin</a>
+</div>
+<div th:insert="layout :: footer"></div>
+</body>
+</html>

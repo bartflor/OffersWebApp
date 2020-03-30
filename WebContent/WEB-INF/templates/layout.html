@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+</head>
+<body>
+
+	<header th:fragment="header" class="layoutheader">
+		<a class="title" th:href="@{/}">Offers app</a>
+
+		<div sec:authorize="!isAuthenticated()">
+			<a class="loglink" th:href="@{/loginform}">Log in</a>
+		</div>
+		<div sec:authorize="isAuthenticated()">
+			<a class="loglink" th:href="@{/logout}">Log out</a>
+		</div>
+	</header>
+
+
+	<footer th:fragment="footer" class="layoutfooter">
+		<hr>
+		&copy; Bartosz Floryan 2020
+	</footer>
+</body>
+</html>

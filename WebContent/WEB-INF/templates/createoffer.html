@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+<link rel="stylesheet" type="text/css" th:href="@{/static/CSS/main.css}"/>
+<title>Create offer</title>
+</head>
+<body>
+<div th:insert="layout :: header"></div>
+
+<form method="post" th:action="@{/docreate}" th:object="${offer}">
+<input name="offer_id" type="hidden" th:field="*{offer_id}">
+<table class="formtable">
+<tr><td class = "label">Text: </td> <td><textarea th:field="*{text}" rows="10" cols="10"> </textarea><br><div th:if="${#fields.hasErrors('text')}" th:errors="*{text}" th:errorclass="error"></div></td></tr>
+<tr><td></td> <td><input value="Save offer" type="submit"></td></tr>
+
+<tr><td>&nbsp;</td></tr>
+<tr><td></td> <td><input name="delete" value="Delete offer" type="submit"></td></tr>
+
+</table>
+</form>
+<div th:insert="layout :: footer"></div>
+
+</body>
+</html>

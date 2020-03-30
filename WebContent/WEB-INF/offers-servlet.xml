@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/security https://www.springframework.org/schema/security/spring-security-5.2.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+	
+	<beans profile="dev">
+	<context:component-scan
+		base-package="pl.bartflor" />
+
+	<mvc:annotation-driven />
+	<!-- <bean id="jspViewResolver" -->
+	<!-- class="org.springframework.web.servlet.view.InternalResourceViewResolver" -->
+	<!-- p:prefix="/WEB-INF/jsps/" p:suffix=".jsp" /> -->
+
+	<mvc:resources location="/resources/"
+		mapping="/static/**"></mvc:resources>
+
+	<bean class="org.thymeleaf.spring5.view.ThymeleafViewResolver"
+		id="viewResolver">
+		<property name="templateEngine" ref="templateEngine" />
+		<property name="order" value="1" />
+		<!-- <property name="viewNames" value="*.html,*.xhtml" /> -->
+	</bean>
+
+	<bean id="templateResolver"
+		class="org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver">
+		<property name="prefix" value="/WEB-INF/templates/" />
+		<property name="suffix" value=".html" />
+		<property name="templateMode" value="HTML" />
+		<property name="cacheable" value="true" />
+	</bean>
+
+
+	<bean id="templateEngine"
+		class="org.thymeleaf.spring5.SpringTemplateEngine">
+		<property name="templateResolver" ref="templateResolver" />
+		<property name="enableSpringELCompiler" value="true" />
+		<property name="additionalDialects">
+			<set>
+				<bean
+					class="org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect" />
+			</set>
+		</property>
+	</bean>
+
+	<bean id="messageSource"
+		class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename"
+			value="pl.bartflor.messages.messages">
+		</property>
+	</bean>
+
+	<import resource="classpath:pl/bartflor/config/dao-context.xml" />
+	<import resource="classpath:pl/bartflor/config/security-context.xml" />
+	<import resource="classpath:pl/bartflor/config/service-context.xml" />
+</beans>
+</beans>

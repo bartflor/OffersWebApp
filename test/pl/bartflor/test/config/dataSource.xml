@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+
+	<beans profile="test">
+		<context:component-scan
+			base-package="pl.bartflor.tests"></context:component-scan>
+		<context:property-placeholder
+			location="pl/bartflor/test/config/jdbc.properties" />
+
+<!-- 		<bean id="jdbcDataSource" -->
+<!-- 			class="org.apache.commons.dbcp2.BasicDataSource" -->
+<!-- 			destroy-method="close" > -->
+
+<!-- 			<property name="username" value="${jdbc.username}"></property> -->
+<!-- 			<property name="password" value="${jdbc.password}"></property> -->
+<!-- 			<property name="driverClassName" value="${jdbc.driver}"></property> -->
+<!-- 			<property name="url" value="${jdbc.url}"></property> -->
+
+<!-- 		</bean> -->
+		
+		<bean id="dataSource"
+			class="org.apache.commons.dbcp2.BasicDataSource"
+			destroy-method="close" primary="true" scope="prototype">
+
+			<property name="username" value="${jdbc.username}"></property>
+			<property name="password" value="${jdbc.password}"></property>
+			<property name="driverClassName" value="${jdbc.driver}"></property>
+			<property name="url" value="${jdbc.url}"></property>
+
+		</bean>
+
+		<bean id="sessionFactory"
+			class="org.springframework.orm.hibernate5.LocalSessionFactoryBean" primary="true">
+			<property name="dataSource" ref="dataSource" />
+			<property name="configLocation"
+				value="classpath:pl/bartflor/config/hibernate.cfg.xml" />
+			<property name="packagesToScan">
+				<value>
+					pl.bartflor.dao, pl.bartflor.test
+				</value>
+			</property>
+		</bean>
+
+		<bean id="transactionManager"
+			class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+			<property name="sessionFactory" ref="sessionFactory" />
+		</bean>
+		<bean id="exceptionTranslator"
+			class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor">
+		</bean>
+		<mvc:annotation-driven />
+		<tx:annotation-driven
+			transaction-manager="transactionManager" />
+	</beans>
+	
+
+</beans>
