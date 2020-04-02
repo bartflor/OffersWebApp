@@ -1,9 +1,12 @@
-package pl.bartflor.dao;
+package pl.bartflor.test.tests;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
+
+import pl.bartflor.dao.Offer;
+import pl.bartflor.dao.User;
 
 public class OfferRowMapper implements RowMapper<Offer> {
 

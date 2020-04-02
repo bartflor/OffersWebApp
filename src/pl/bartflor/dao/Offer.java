@@ -1,27 +1,28 @@
 package pl.bartflor.dao;
 
-import javax.annotation.Generated;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
+
 @Entity
-@Table(name="offer")
+@Table(name = "offer")
 public class Offer {
 	@Id
-	@Generated(value = { "GenerationTime.ALWAYS" })
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int offer_id;
-	
+
 	@ManyToOne
-	@JoinColumn(name="username")
+	@JoinColumn(name = "username")
 	private User user;
-	
-	
-	@Size(min=20, max=255, groups = {PersistenceConstraints.class, FormConstraints.class})
+
+	@Size(min = 20, max = 255, groups = { PersistenceConstraints.class, FormConstraints.class })
 	private String text;
-	
+
 	public Offer() {
 		this.user = new User();
 	}
@@ -62,7 +63,7 @@ public class Offer {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
+
 	public String getUsername() {
 		return this.user.getUsername();
 	}
@@ -103,6 +104,5 @@ public class Offer {
 	public String toString() {
 		return "Offer [offer_id=" + offer_id + ", user=" + user + ", text=" + text + "]";
 	}
-
 
 }

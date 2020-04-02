@@ -39,7 +39,6 @@ public class OffersDao {
 	}
 
 	public void createOffer(Offer offer) {
-		System.out.println(getSession().isConnected());
 		getSession().save(offer);
 	}
 
