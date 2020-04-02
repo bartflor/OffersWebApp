@@ -23,14 +23,14 @@ To run this project no your local tomcat server:
 3. Restart tomcat server
 4. Accessed in web browser
 
-###You need will:
+#### You will need:
 * Maven
 * Tomcat (with mysql driver in lib)
 * MySQL server
 
-###MySQL database config:
+#### MySQL database config:
 Hibernate will automaticly create needed tables.
-To let JNDI-lookup create Resource on Tomcat server in context.xml:
+To let JNDI-lookup work, create Resource on Tomcat server in context.xml:
 ```
 	<Resource name="jdbc/AppDB" auth="Container"
 		type="javax.sql.DataSource"
