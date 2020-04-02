@@ -6,11 +6,10 @@
 <hibernate-configuration>
 	<session-factory>
 		<!-- JDBC connection pool (use the built-in) -->
-		<property name="connection.pool_size">4</property>
-		<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+		<property name="connection.pool_size">1</property>
+		<property name="dialect">org.hibernate.dialect.MySQL55Dialect</property>
 		<!-- Echo all executed SQL to stdout -->
 		<property name="show_sql">true</property>
-
 		<property
 			name="javax.persistence.validation.group.pre-persist">
 			pl.bartflor.dao.PersistenceConstraints
@@ -21,6 +20,8 @@
 		</property>
 		<property
 			name="javax.persistence.validation.group.pre-remove"></property>
+		<property name="hibernate.hbm2ddl.auto">create-only</property>
+		
 
 	</session-factory>
 </hibernate-configuration>
